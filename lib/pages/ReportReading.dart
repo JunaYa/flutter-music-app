@@ -74,12 +74,12 @@ Widget _headerUserInfo () {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 84.0,
-                  height: 84.0,
+                  width: 80.0,
+                  height: 80.0,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.white,
-                      width: 8.0,
+                      width: 6.0,
                     ),
                     borderRadius: const BorderRadius.all(Radius.circular(42.0)),
                   ),
@@ -89,7 +89,7 @@ Widget _headerUserInfo () {
             ),
           ), //Container
           Positioned(
-            top: 64,
+            top: 60,
             left: 80,
             right: 80,
             child: Container(

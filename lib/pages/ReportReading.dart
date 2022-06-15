@@ -32,7 +32,7 @@ class BoardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: const EdgeInsets.only(top: 111.0, left: 24.0, right: 24.0),
+      padding: const EdgeInsets.only(top: 74.0, left: 8.0, right: 8.0),
       child: Container(
         width: double.infinity,
         height: 226,
@@ -59,8 +59,8 @@ Widget _headerUserInfo () {
     verticalDirection: VerticalDirection.up,
     children: [
       Container(
-        width: 264.0,
-        height: 56.0,
+        width: double.infinity,
+        height: 46.0,
         padding: const EdgeInsets.only(top: 6.0),
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -83,6 +83,7 @@ Widget _headerUserInfo () {
         width: 84.0,
         height: 84.0,
         padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.only(top: 12.0),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(42.0)),
           color: Colors.white,

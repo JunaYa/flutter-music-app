@@ -12,33 +12,40 @@ class ReportReading extends StatelessWidget {
             image: DecorationImage(
               image: AssetImage('assets/images/reading_bg.png'),
               fit: BoxFit.contain,
+              alignment: Alignment.topCenter,
             ),
           ),
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 111.0, left: 24.0, right: 24.0),
-                child: Container(
-                  width: double.infinity,
-                  height: 226,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/reading_header_bg.png'),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      _headerUserInfo(),
-                      _headerCourseData(),
-                    ],
-                  ),
-                ),
-              ),
-              const Text('Hello!'),
-              const Text('Goodbye!'),
+              BoardHeader(),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class BoardHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return  Padding(
+      padding: const EdgeInsets.only(top: 111.0, left: 24.0, right: 24.0),
+      child: Container(
+        width: double.infinity,
+        height: 226,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/reading_header_bg.png'),
+            fit: BoxFit.contain,
+            alignment: Alignment.topCenter,
+          ),
+        ),
+        child: Column(
+          children: [
+            _headerUserInfo(),
+            _headerCourseData(),
+          ],
         ),
       ),
     );
@@ -52,10 +59,12 @@ Widget _headerUserInfo () {
       Container(
         width: 264.0,
         height: 56.0,
+        padding: const EdgeInsets.only(top: 6.0),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/reading_header_name_bg.png'),
             fit: BoxFit.contain,
+            alignment: Alignment.topCenter,
           )
         ),
         child: const Center(
@@ -63,7 +72,7 @@ Widget _headerUserInfo () {
             '小核桃',
             style: TextStyle(
             fontSize: 20.0,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             color: Colors.white,
           ),),
         ),

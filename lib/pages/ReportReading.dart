@@ -20,6 +20,7 @@ class ReportReading extends StatelessWidget {
           child: Column(
             children: <Widget>[
               const BoardHeader(),
+              const BoardCourseharvest(),
             ],
           ),
         ),
@@ -182,3 +183,47 @@ class CourseDataItem extends StatelessWidget {
   }
 }
 
+class BoardCourseharvest extends StatelessWidget {
+  const BoardCourseharvest({Key? key}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: const CommonBoardTitle('阅读作品'),
+    );
+  }
+
+}
+
+class CommonBoardTitle extends StatelessWidget {
+  final String title;
+
+  const CommonBoardTitle(this.title, {Key? key}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 280,
+      height: 50,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/reading_board_header_title_bg.png'),
+          fit: BoxFit.contain,
+          alignment: Alignment.center,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.w600,
+            color: Color.fromARGB(255, 77, 40, 10),
+          ),
+        ),
+      ),
+    );
+  }
+}

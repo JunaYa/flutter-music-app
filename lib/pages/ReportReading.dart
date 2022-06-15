@@ -59,7 +59,7 @@ class BoardHeader extends StatelessWidget {
 Widget _headerUserInfo () {
   return SizedBox(
     width: double.infinity,
-    height: 130,
+    height: 108,
     child: Center(
       child: Stack(
         fit: StackFit.expand,
@@ -124,10 +124,12 @@ Widget _headerUserInfo () {
 
 Widget _headerCourseData () {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      CourseDataItem(label: '阅读时长', value: '20', ceil: '分钟'),
-      CourseDataItem(label: '闯关答题', value: '20', ceil: '次'),
-      CourseDataItem(label: '互动次数', value: '20', ceil: '次'),
+      const CourseDataItem(label: '阅读时长', value: '20', ceil: '分钟'),
+      const CourseDataItem(label: '闯关答题', value: '20', ceil: '次'),
+      const CourseDataItem(label: '互动次数', value: '20', ceil: '次'),
     ],
   );
 }
@@ -141,7 +143,7 @@ class CourseDataItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
       Text(
         label,
@@ -152,27 +154,28 @@ class CourseDataItem extends StatelessWidget {
         ),
       ),
       Container(
-        margin: const EdgeInsets.only(top: 10.0),
+        padding: const EdgeInsets.all(0.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 40.0,
-              fontWeight: FontWeight.w500,
-              color: Color.fromARGB(100, 162, 91, 34),
-            )
-          ),
-          Text(
-            ceil,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-              color: Color.fromARGB(100, 202, 159, 122),
-            )
-          ),
-        ]),
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 40.0,
+                fontWeight: FontWeight.w500,
+                color: Color.fromARGB(100, 162, 91, 34),
+              )
+            ),
+            Text(
+              ceil,
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w500,
+                color: Color.fromARGB(100, 202, 159, 122),
+              )
+            ),
+          ]
+        ),
       ),
     ],)
   );

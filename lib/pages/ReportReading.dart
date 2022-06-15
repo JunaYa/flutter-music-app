@@ -27,6 +27,8 @@ class ReportReading extends StatelessWidget {
 }
 
 class BoardHeader extends StatelessWidget {
+  const BoardHeader({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return  Padding(
@@ -102,7 +104,7 @@ Widget _headerCourseData () {
 }
 
 class CourseDataItem extends StatelessWidget {
-  CourseDataItem ({ required this.label, required this.value, required this.ceil});
+  const CourseDataItem ({Key? key,  required this.label, required this.value, required this.ceil}) : super(key: key);
   final String label;
   final String value;
   final String ceil;

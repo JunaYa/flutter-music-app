@@ -18,9 +18,9 @@ class ReportReading extends StatelessWidget {
             ),
           ),
           child: Column(
-            children: <Widget>[
-              const BoardHeader(),
-              const BoardCourseharvest(),
+            children: const <Widget>[
+              BoardHeader(),
+              BoardCourseHarvest(),
             ],
           ),
         ),
@@ -122,15 +122,14 @@ Widget _headerUserInfo () {
   );
 }
 
-
 Widget _headerCourseData () {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      const CourseDataItem(label: '阅读时长', value: '20', ceil: '分钟'),
-      const CourseDataItem(label: '闯关答题', value: '20', ceil: '次'),
-      const CourseDataItem(label: '互动次数', value: '20', ceil: '次'),
+    children: const [
+      CourseDataItem(label: '阅读时长', value: '20', ceil: '分钟'),
+      CourseDataItem(label: '闯关答题', value: '20', ceil: '次'),
+      CourseDataItem(label: '互动次数', value: '20', ceil: '次'),
     ],
   );
 }
@@ -183,13 +182,30 @@ class CourseDataItem extends StatelessWidget {
   }
 }
 
-class BoardCourseharvest extends StatelessWidget {
-  const BoardCourseharvest({Key? key}) : super(key: key);
+class BoardCourseHarvest extends StatelessWidget {
+  const BoardCourseHarvest({Key? key}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: const CommonBoardTitle('阅读作品'),
+      width: double.infinity,
+      padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 18.0, bottom: 12.0),
+      margin: const EdgeInsets.only(left: 12.0, right: 12.0),
+      height: 420,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/reading_board_bg.png'),
+          fit: BoxFit.fill,
+        )
+      ),
+      child: Column(
+        children: [
+          const CommonBoardTitle('阅读作品'),
+          const Padding(padding: EdgeInsets.all(5)),
+          _harvestContent(),
+          _keywordsLayout(),
+        ],
+      ),
     );
   }
 
@@ -227,3 +243,67 @@ class CommonBoardTitle extends StatelessWidget {
     );
   }
 }
+
+Widget _harvestContent () {
+  return Container(
+    padding: const EdgeInsets.all(12.0),
+    decoration: const BoxDecoration(
+      color: Color.fromARGB(250, 216, 193, 130),
+    ),
+    child: const Text(
+      '这里会有 100 个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有',
+      style: TextStyle(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w600,
+        color: Color.fromARGB(255, 137, 79, 32),
+      ),
+    ),
+  );
+}
+
+Widget _keywordsLayout () {
+  return Padding(
+    padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const KeyworkdsItem('判断思维'),
+        const KeyworkdsItem('分析能力'),
+      ],
+    ),
+  );
+}
+
+class KeyworkdsItem extends StatelessWidget {
+  final String text;
+
+  const KeyworkdsItem(this.text, {Key? key}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 110,
+      height: 36,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/reading_keywords_bg.png'),
+          fit: BoxFit.contain,
+          alignment: Alignment.center,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0, left: 12.0),
+        child: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+            color: Color.fromARGB(255, 102, 143, 219),
+          ),
+        ),
+      )
+    );
+  }
+
+}
+

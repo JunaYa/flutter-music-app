@@ -25,16 +25,32 @@ class ReportReading extends StatelessWidget {
               child: Column(
                 children: const <Widget>[
                   BoardHeader(),
-                  BoardCourseHarvest(),
                   CommonBoardBody(
                     children: [
-                      // CommonBoardTitle('阅读作品'),
+                      CommonBoardTitle('本课收获'),
                       Padding(padding: EdgeInsets.all(5)),
-                      Text("data")
-                      // _harvestContent(),
-                      // _keywordsLayout(),
+                      const Padding(padding: EdgeInsets.all(5)),
+                      const HarvestContent(),
+                      const KeywordsLayout(),
                     ],
-                  )
+                  ),
+                  CommonBoardBody(
+                    children: [
+                      CommonBoardTitle('阅读作品'),
+                      Padding(padding: EdgeInsets.all(5)),
+                      const Padding(padding: EdgeInsets.all(5)),
+                      const HarvestContent(),
+                      const KeywordsLayout(),
+                    ],
+                  ),
+                  CommonBoardBody(
+                    children: [
+                      CommonBoardTitle('阅读小技巧'),
+                      Padding(padding: EdgeInsets.all(5)),
+                      const Padding(padding: EdgeInsets.all(5)),
+                      const TeacherInfo(),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -198,35 +214,6 @@ class CourseDataItem extends StatelessWidget {
   }
 }
 
-class BoardCourseHarvest extends StatelessWidget {
-  const BoardCourseHarvest({Key? key}) : super(key: key);
-  
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 18.0, bottom: 12.0),
-      margin: const EdgeInsets.only(left: 12.0, right: 12.0),
-      height: 420,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/reading_board_bg.png'),
-          fit: BoxFit.fill,
-        )
-      ),
-      child: Column(
-        children: [
-          const CommonBoardTitle('阅读作品'),
-          const Padding(padding: EdgeInsets.all(5)),
-          _harvestContent(),
-          _keywordsLayout(),
-        ],
-      ),
-    );
-  }
-
-}
-
 class CommonBoardBody extends StatelessWidget {
   final List<Widget> children;
 
@@ -285,34 +272,46 @@ class CommonBoardTitle extends StatelessWidget {
   }
 }
 
-Widget _harvestContent () {
-  return Container(
-    padding: const EdgeInsets.all(12.0),
-    decoration: const BoxDecoration(
-      color: Color.fromARGB(250, 216, 193, 130),
-    ),
-    child: const Text(
-      '这里会有 100 个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有',
-      style: TextStyle(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w600,
-        color: Color.fromARGB(255, 137, 79, 32),
+class HarvestContent extends StatelessWidget {
+  const HarvestContent({Key? key}) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      decoration: const BoxDecoration(
+        color: Color.fromARGB(250, 216, 193, 130),
       ),
-    ),
-  );
+      child: const Text(
+        '这里会有 100 个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有100个字这里会有',
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w600,
+          color: Color.fromARGB(255, 137, 79, 32),
+        ),
+      ),
+    );
+  }
 }
 
-Widget _keywordsLayout () {
-  return Padding(
-    padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const KeyworkdsItem('判断思维'),
-        const KeyworkdsItem('分析能力'),
-      ],
-    ),
-  );
+class KeywordsLayout extends StatelessWidget {
+  const KeywordsLayout({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const KeyworkdsItem('判断思维'),
+          const KeyworkdsItem('分析能力'),
+        ],
+      ),
+    );
+  }
+
 }
 
 class KeyworkdsItem extends StatelessWidget {
@@ -348,3 +347,67 @@ class KeyworkdsItem extends StatelessWidget {
 
 }
 
+class TeacherInfo extends StatelessWidget {
+  const TeacherInfo({Key? key}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(left: 50.0, right: 50.0),
+            padding: const EdgeInsets.only(top: 30, bottom: 30, ),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 216, 193, 130),
+              border: Border.all(
+                width: 1,
+                color: const Color.fromARGB(255, 137, 79, 32),
+              )
+            ),
+            child: Column(
+              children: [
+                Container(
+                  width: 80.0,
+                  height: 80.0,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 6.0,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(42.0)),
+                  ),
+                  child: Image.asset('assets/images/default_teacher_avatar.jpg'),
+                ),
+                const Text('专属老师',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 85, 48, 15),
+                  ),
+                ),
+                const Text('邀请你接听视频电话',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 226, 148, 40),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(1),
+            child: Container(
+              width: 172,
+              height: 100,
+              child: Image.asset('assets/images/btn_reading_receive.png'),
+            ),
+          ),
+        ],
+      )
+    );
+  }
+
+}

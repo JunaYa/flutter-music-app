@@ -17,11 +17,27 @@ class ReportReading extends StatelessWidget {
               alignment: Alignment.topCenter,
             ),
           ),
-          child: Column(
-            children: const <Widget>[
-              BoardHeader(),
-              BoardCourseHarvest(),
-            ],
+          child: SingleChildScrollView(
+            child: ConstrainedBox (
+              constraints: const BoxConstraints(
+                maxHeight: double.infinity,
+              ),
+              child: Column(
+                children: const <Widget>[
+                  BoardHeader(),
+                  BoardCourseHarvest(),
+                  CommonBoardBody(
+                    children: [
+                      // CommonBoardTitle('阅读作品'),
+                      Padding(padding: EdgeInsets.all(5)),
+                      Text("data")
+                      // _harvestContent(),
+                      // _keywordsLayout(),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -209,6 +225,31 @@ class BoardCourseHarvest extends StatelessWidget {
     );
   }
 
+}
+
+class CommonBoardBody extends StatelessWidget {
+  final List<Widget> children;
+
+  const CommonBoardBody({super.key, required this.children});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 18.0, bottom: 12.0),
+      margin: const EdgeInsets.only(left: 12.0, right: 12.0),
+      height: 420,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/reading_board_bg.png'),
+          fit: BoxFit.fill,
+        )
+      ),
+      child: Column(
+        children: children,
+      ),
+    );
+  }
 }
 
 class CommonBoardTitle extends StatelessWidget {

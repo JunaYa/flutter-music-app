@@ -1,5 +1,7 @@
 // ignore_for_file: empty_statements
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 class ReportReading extends StatelessWidget {
   const ReportReading({super.key});
@@ -35,10 +37,21 @@ class ReportReading extends StatelessWidget {
                     ],
                   ),
                   CommonBoardBody(
-                    height: 300,
+                    height: 360,
                     children: [
                       CommonBoardTitle('阅读作品'),
-                      Padding(padding: EdgeInsets.all(5)),
+                      Padding(padding: EdgeInsets.all(10)),
+                      AudioWorkItem(
+                        title: '1.给妈妈讲一讲刚才的故事吧',
+                        url: '',
+                        duration: 1 * 60 + 13,
+                      ),
+                      Padding(padding: EdgeInsets.all(10)),
+                      AudioWorkItem(
+                        title: '2.给爸爸讲一讲刚才的故事吧',
+                        url: '',
+                        duration: 1 * 60 + 25,
+                      ),
                     ],
                   ),
                   CommonBoardBody(
@@ -406,6 +419,84 @@ class TeacherInfo extends StatelessWidget {
           ),
         ],
       )
+    );
+  }
+
+}
+
+class AudioWorkItem extends StatelessWidget {
+  final String title;
+  final String url;
+  final int duration;
+
+  const AudioWorkItem({Key? key, required this.title, required this.url, required this.duration}) : super(key: key);
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 18, right: 12), 
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 22.0,
+                fontWeight: FontWeight.w600,
+                color: Color.fromARGB(255, 137, 79, 32),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Container(
+                width: 48,
+                height: 42,
+                margin: const EdgeInsets.only(right: 22),
+                child: Image.asset('assets/images/btn_audio_reading_paused.png'),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 8),
+                    child: const Text(
+                      '00:00',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 226, 148, 40),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 120,
+                    height: 4,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 226, 148, 40),
+                      borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                    ),
+                    child: const Text(''),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 8),
+                    child: const Text(
+                      '01:25',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 226, 148, 40),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 

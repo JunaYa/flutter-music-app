@@ -206,7 +206,7 @@ class CourseDataItem extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 40.0,
                 fontWeight: FontWeight.w500,
-                color: Color.fromARGB(100, 162, 91, 34),
+                color: Color.fromARGB(250, 162, 91, 34),
               )
             ),
             Text(
@@ -214,7 +214,7 @@ class CourseDataItem extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w500,
-                color: Color.fromARGB(100, 202, 159, 122),
+                color: Color.fromARGB(255, 202, 159, 122),
               )
             ),
           ]

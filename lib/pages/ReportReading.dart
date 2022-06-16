@@ -26,29 +26,27 @@ class ReportReading extends StatelessWidget {
                 children: const <Widget>[
                   BoardHeader(),
                   CommonBoardBody(
+                    height: 420,
                     children: [
                       CommonBoardTitle('本课收获'),
                       Padding(padding: EdgeInsets.all(5)),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      const HarvestContent(),
-                      const KeywordsLayout(),
+                      HarvestContent(),
+                      KeywordsLayout(),
                     ],
                   ),
                   CommonBoardBody(
+                    height: 300,
                     children: [
                       CommonBoardTitle('阅读作品'),
                       Padding(padding: EdgeInsets.all(5)),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      const HarvestContent(),
-                      const KeywordsLayout(),
                     ],
                   ),
                   CommonBoardBody(
+                    height: 400,
                     children: [
                       CommonBoardTitle('阅读小技巧'),
                       Padding(padding: EdgeInsets.all(5)),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      const TeacherInfo(),
+                      TeacherInfo(),
                     ],
                   ),
                 ],
@@ -216,8 +214,9 @@ class CourseDataItem extends StatelessWidget {
 
 class CommonBoardBody extends StatelessWidget {
   final List<Widget> children;
+  final double height;
 
-  const CommonBoardBody({super.key, required this.children});
+  const CommonBoardBody({super.key, required this.children, this.height = 420});
   
   @override
   Widget build(BuildContext context) {
@@ -225,7 +224,7 @@ class CommonBoardBody extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.only(top: 12.0, left: 12.0, right: 18.0, bottom: 12.0),
       margin: const EdgeInsets.only(left: 12.0, right: 12.0),
-      height: 420,
+      height: height,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/reading_board_bg.png'),

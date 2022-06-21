@@ -1,5 +1,6 @@
 import 'package:app/pages/extentions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 const Color _gredientBgColor1 = Color.fromARGB(255, 24, 25, 28);
 const Color _gredientBgColor2 = Color.fromARGB(255, 56, 58, 64);
@@ -271,8 +272,17 @@ class PlayerProgressBoard extends StatelessWidget {
 
 }
 
-class PlayerControlBoard extends StatelessWidget {
+class PlayerControlBoard extends StatefulWidget {
   const PlayerControlBoard({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _PlayerControlBoardState();
+  }
+}
+
+class _PlayerControlBoardState extends State<PlayerControlBoard> {
+  bool isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
@@ -297,7 +307,7 @@ class PlayerControlBoard extends StatelessWidget {
               ),
             ),
             child: const Icon(
-              Icons.skip_next,
+              Icons.skip_previous,
               color: Colors.white,
               size: 24.0,
               semanticLabel: 'Text to announce in accessibility modes',
@@ -309,34 +319,44 @@ class PlayerControlBoard extends StatelessWidget {
             topShadowColor: const Color.fromARGB(255, 60, 66, 73),
             bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
           ),
-          Container(
-            width: 80,
-            height: 80,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(40.0)),
-              color: Color.fromARGB(255, 44, 48, 53),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment(0.8, 1),
-                colors: <Color>[
-                  _gredientColor1,
-                  _gredientColor2,
-                ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                tileMode: TileMode.mirror,
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                isPlaying = !isPlaying;
+              });
+            },
+            child: Container(
+              width: 80,
+              height: 80,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                color: Color.fromARGB(255, 44, 48, 53),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    _gredientColor1,
+                    _gredientColor2,
+                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                  tileMode: TileMode.mirror,
+                ),
               ),
+              child: isPlaying 
+                ? const Icon(
+                  Icons.pause,
+                  color: Colors.white,
+                  size: 24.0)
+                : const Icon(
+                  Icons.play_arrow,
+                  color: Colors.white,
+                  size: 24.0),
+            ).addNeumorphism(
+              blurRadius: 10,
+              borderRadius: 40,
+              offset: const Offset(5, 5),
+              topShadowColor: const Color.fromARGB(255, 60, 66, 73),
+              bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
             ),
-            child: const Icon(
-              Icons.pause,
-              color: Colors.white,
-              size: 24.0,
-              semanticLabel: 'Text to announce in accessibility modes',
-            ),
-          ).addNeumorphism(
-            blurRadius: 10,
-            borderRadius: 40,
-            offset: const Offset(5, 5),
-            topShadowColor: const Color.fromARGB(255, 60, 66, 73),
-            bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
           ),
           Container(
             width: 56,
@@ -355,7 +375,7 @@ class PlayerControlBoard extends StatelessWidget {
               ),
             ),
             child: const Icon(
-              Icons.skip_previous,
+              Icons.skip_next,
               color: Colors.white,
               size: 24.0,
               semanticLabel: 'Text to announce in accessibility modes',

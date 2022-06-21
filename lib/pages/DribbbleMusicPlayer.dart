@@ -290,34 +290,13 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            width: 56,
-            height: 56,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(28.0)),
-              color: Color.fromARGB(255, 44, 48, 53),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment(0.8, 1),
-                colors: <Color>[
-                  _gredientColor1,
-                  _gredientColor2,
-                ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                tileMode: TileMode.mirror,
-              ),
-            ),
-            child: const Icon(
+           const ButtonPlay(
+            icon: Icon(
               Icons.skip_previous,
               color: Colors.white,
               size: 24.0,
               semanticLabel: 'Text to announce in accessibility modes',
-            ),
-          ).addNeumorphism(
-            blurRadius: 10,
-            borderRadius: 28,
-            offset: const Offset(5, 5),
-            topShadowColor: const Color.fromARGB(255, 60, 66, 73),
-            bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
+            )
           ),
           GestureDetector(
             onTap: () {
@@ -358,37 +337,50 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
               bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
             ),
           ),
-          Container(
-            width: 56,
-            height: 56,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(28.0)),
-              color: Color.fromARGB(255, 44, 48, 53),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment(0.8, 1),
-                colors: <Color>[
-                  _gredientColor1,
-                  _gredientColor2,
-                ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                tileMode: TileMode.mirror,
-              ),
-            ),
-            child: const Icon(
+          const ButtonPlay(
+            icon: Icon(
               Icons.skip_next,
               color: Colors.white,
               size: 24.0,
               semanticLabel: 'Text to announce in accessibility modes',
-            ),
-          ).addNeumorphism(
-            blurRadius: 10,
-            borderRadius: 28,
-            offset: const Offset(5, 5),
-            topShadowColor: const Color.fromARGB(255, 60, 66, 73),
-            bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
+            )
           ),
         ],
       )
+    );
+  }
+
+}
+
+class ButtonPlay extends StatelessWidget {
+  final Widget icon;
+  const ButtonPlay({Key? key, required this.icon}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 56,
+      height: 56,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(28.0)),
+        color: Color.fromARGB(255, 44, 48, 53),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment(0.8, 1),
+          colors: <Color>[
+            _gredientColor1,
+            _gredientColor2,
+          ], // Gradient from https://learnui.design/tools/gradient-generator.html
+          tileMode: TileMode.mirror,
+        ),
+      ),
+      child: icon,
+    ).addNeumorphism(
+      blurRadius: 10,
+      borderRadius: 28,
+      offset: const Offset(5, 5),
+      topShadowColor: const Color.fromARGB(255, 60, 66, 73),
+      bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
     );
   }
 

@@ -1,6 +1,5 @@
 import 'package:app/pages/extentions.dart';
 import 'package:flutter/material.dart';
-import '../components/Neumorphism.dart';
 
 class DribbbleMusicPlayer extends StatelessWidget {
   const DribbbleMusicPlayer({Key? key}) : super(key: key);
@@ -17,7 +16,9 @@ class DribbbleMusicPlayer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: const [
+              Padding(padding: EdgeInsets.all(6)),
               HeaderBoard(),
+              Padding(padding: EdgeInsets.all(10)),
               AlbumBoard(),
             ],
           ),
@@ -124,7 +125,7 @@ class AlbumBoard extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100.0),
-        child: Image.asset('assets/images/album.jpg', fit: BoxFit.fitHeight,),
+        child: Image.asset('assets/images/album.jpg', fit: BoxFit.cover,),
       ),
     ).addNeumorphism(
       blurRadius: 16,

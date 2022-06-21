@@ -1,9 +1,10 @@
 import 'package:app/pages/extentions.dart';
 import 'package:flutter/material.dart';
 
+const Color _gredientBgColor1 = Color.fromARGB(255, 24, 25, 28);
+const Color _gredientBgColor2 = Color.fromARGB(255, 56, 58, 64);
 const Color _gredientColor1 = Color.fromARGB(255, 42, 41, 45);
 const Color _gredientColor2 = Color.fromRGBO(22, 17, 22, 1);
-const Color _kBackgroundColor = Color.fromARGB(255, 52, 58, 68);
 
 class DribbbleMusicPlayer extends StatelessWidget {
   const DribbbleMusicPlayer({Key? key}) : super(key: key);
@@ -15,7 +16,19 @@ class DribbbleMusicPlayer extends StatelessWidget {
       body: Container(
           width: double.infinity,
           height: size.height,
-          color: _kBackgroundColor,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            color: Color.fromARGB(255, 44, 48, 53),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: <Color>[
+                _gredientBgColor2,
+                _gredientBgColor1,
+              ], // Gradient from https://learnui.design/tools/gradient-generator.html
+              tileMode: TileMode.mirror,
+            ),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -235,18 +248,9 @@ class PlayerProgressBoard extends StatelessWidget {
                   width: 32,
                   height: 32,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(18.0)),
-                    color: Color.fromARGB(255, 238, 229, 97),
+                    borderRadius: const BorderRadius.all(Radius.circular(18.0)),
+                    color: const Color.fromARGB(255, 238, 229, 97),
                     border: Border.all(color: _gredientColor2, width: 12),
-                    // gradient: LinearGradient(
-                    //   begin: Alignment.topCenter,
-                    //   end: Alignment.bottomCenter,
-                    //   colors: <Color>[
-                    //     _gredientColor1,
-                    //     _gredientColor2,
-                    //   ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                    //   tileMode: TileMode.mirror,
-                    // ),
                   ),
                 ).addNeumorphism(
                   blurRadius: 10,

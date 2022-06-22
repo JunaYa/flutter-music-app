@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:app/pages/extentions.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -177,11 +181,22 @@ class AlbumBoard extends StatelessWidget {
   }
 }
 
-class PlayerProgressBoard extends StatelessWidget {
+class PlayerProgressBoard extends StatefulWidget {
   const PlayerProgressBoard({Key? key}) : super(key: key);
+  
+  @override
+  State<StatefulWidget> createState() => _PlayerProgressBoard();
+
+}
+
+class _PlayerProgressBoard extends State<PlayerProgressBoard> {
+  double position = 0;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double maxPosition = size.width - 48 - 28;
+
     return Container(
       margin: const EdgeInsets.only(top: 48, bottom: 68),
       padding: const EdgeInsets.only(left: 24, right: 24),
@@ -195,78 +210,103 @@ class PlayerProgressBoard extends StatelessWidget {
             ],
           ),
           const Padding(padding: EdgeInsets.all(8)),
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                width: double.infinity,
-                height: 6,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(3.0)),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: <Color>[
-                      _gredientColor2,
-                      Color.fromARGB(255, 89, 88, 93),
-                    ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                    tileMode: TileMode.mirror,
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 2,
-                left: 0,
-                right: 200,
-                child: Container(
+          SizedBox(
+            width: double.infinity,
+            height: 6,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
                   width: double.infinity,
-                  height: 4,
+                  height: 6,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(3.0)),
                     gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
                       colors: <Color>[
-                        Color.fromARGB(255, 186, 70, 20),
-                        Color.fromARGB(255, 238, 229, 97),
+                        _gredientColor2,
+                        Color.fromARGB(255, 89, 88, 93),
                       ], // Gradient from https://learnui.design/tools/gradient-generator.html
                       tileMode: TileMode.mirror,
                     ),
                   ),
+                ),
+                Positioned(
+                  top: 2,
+                  left: 0,
+                  right: maxPosition - position,
                   child: Container(
-                    width: 19,
-                    // color: const Color.fromARGB(255, 202, 84, 33),
+                    width: double.infinity,
+                    height: 4,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(3.0)),
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: <Color>[
+                          Color.fromARGB(255, 186, 70, 20),
+                          Color.fromARGB(255, 238, 229, 97),
+                        ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                        tileMode: TileMode.mirror,
+                      ),
+                    ),
+                    child: Container(
+                      width: 19,
+                      // color: const Color.fromARGB(255, 202, 84, 33),
+                    ),
                   ),
                 ),
-              ),
-              Positioned(
-                top: -10,
-                left: 100,
-                child: Container(
-                  width: 28,
-                  height: 28,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(18.0)),
-                    color: const Color.fromARGB(255, 238, 229, 97),
-                    border: Border.all(color: _gredientColor2, width: 10),
+                Positioned(
+                  top: -10,
+                  left: position,
+                  child: GestureDetector(
+                    onPanDown: (DragDownDetails e) {
+                      //打印手指按下的位置(屏幕)
+                      print("用户手指按下：${e.globalPosition}");
+                    },
+                    //手指滑动时会触发此回调
+                    onPanUpdate: (DragUpdateDetails e) {
+                      //用户手指滑动时，更新偏移，重新构建
+                      setState(() {
+                        double temp = position + e.delta.dx;
+                        if (temp <= 0) {
+                          position = 0;
+                        } else if (temp > maxPosition) {
+                          position = maxPosition;
+                        } else {
+                          position = temp;
+                        }
+                      });
+                    },
+                    onPanEnd: (DragEndDetails e) {
+                      //打印滑动结束时在x、y轴上的速度
+                      print(e.velocity);
+                    },
+                    child: Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(18.0)),
+                        color: const Color.fromARGB(255, 238, 229, 97),
+                        border: Border.all(color: _gredientColor2, width: 10),
+                      ),
+                    ).addNeumorphism(
+                      blurRadius: 10,
+                      borderRadius: 18,
+                      offset: const Offset(5, 5),
+                      topShadowColor: const Color.fromARGB(255, 60, 66, 73),
+                      bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
+                    ),
                   ),
-                ).addNeumorphism(
-                  blurRadius: 10,
-                  borderRadius: 18,
-                  offset: const Offset(5, 5),
-                  topShadowColor: const Color.fromARGB(255, 60, 66, 73),
-                  bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
                 ),
-              ),
-            ],
+              ],
+            )
           )
         ],
       )
     );
   }
-  
-  void setState(Null Function() param0) {}
-
 }
 
 class PlayerControlBoard extends StatefulWidget {

@@ -22,8 +22,6 @@ class PlayerProgressBoard extends StatefulWidget {
 }
 
 class _PlayerProgressBoard extends State<PlayerProgressBoard> {
-  double position = 0;
-
   Duration? _duration;
   Duration? _position;
 
@@ -34,8 +32,12 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
   StreamSubscription? _playerStateChangeSubscription;
 
   AudioPlayer get player => widget.player;
-  String get _durationText => _duration?.toString().split('.').first ?? '00:00';
-  String get _positionText => _position?.toString().split('.').first ?? '00:00';
+  String get _durationText => _duration?.toString().split('.').first ?? '00:00:00';
+  String get _positionText => _position?.toString().split('.').first ?? '00:00:00';
+  int get p => _position?.inMicroseconds ?? 0;
+  int get d => _duration?.inMicroseconds ?? 0;
+  double get rate => p / d;
+  double position = 0;
 
   @override
   void initState() {
@@ -94,7 +96,7 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                 Positioned(
                   top: 2,
                   left: 0,
-                  right: maxPosition - position,
+                  right: maxPosition - maxPosition * rate,
                   child: Container(
                     width: double.infinity,
                     height: 4,
@@ -118,7 +120,7 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                 ),
                 Positioned(
                   top: -10,
-                  left: position,
+                  left: maxPosition * rate,
                   child: GestureDetector(
                     onPanDown: (DragDownDetails e) {
                       print("onPanDown ${e}");
@@ -171,7 +173,6 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
 
   void _initStreams() {
     _durationSubscription = player.onDurationChanged.listen((duration) {
-      print('_duration $duration');
       setState(() => _duration = duration);
     });
 

@@ -213,17 +213,14 @@ class PlayerProgressBoard extends StatelessWidget {
                     tileMode: TileMode.mirror,
                   ),
                 ),
-                child: Container(
-                  width: 19,
-                  // color: const Color.fromARGB(255, 202, 84, 33),
-                ),
               ),
               Positioned(
+                top: 2,
                 left: 0,
                 right: 200,
                 child: Container(
                   width: double.infinity,
-                  height: 6,
+                  height: 4,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(3.0)),
                     gradient: LinearGradient(
@@ -243,15 +240,15 @@ class PlayerProgressBoard extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: -12,
+                top: -10,
                 left: 100,
                 child: Container(
-                  width: 32,
-                  height: 32,
+                  width: 28,
+                  height: 28,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(18.0)),
                     color: const Color.fromARGB(255, 238, 229, 97),
-                    border: Border.all(color: _gredientColor2, width: 12),
+                    border: Border.all(color: _gredientColor2, width: 10),
                   ),
                 ).addNeumorphism(
                   blurRadius: 10,
@@ -290,7 +287,7 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-           const ButtonPlay(
+          const ButtonPlay(
             icon: Icon(
               Icons.skip_previous,
               color: Colors.white,

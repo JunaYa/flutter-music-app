@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:app/pages/extentions.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,34 @@ class PlayerProgressBoard extends StatefulWidget {
 class _PlayerProgressBoard extends State<PlayerProgressBoard> {
   double position = 0;
 
+  Duration? _duration;
+  Duration? _position;
+
+  PlayerState _playerState = PlayerState.stopped;
+  StreamSubscription? _durationSubscription;
+  StreamSubscription? _positionSubscription;
+  StreamSubscription? _playerCompleteSubscription;
+  StreamSubscription? _playerStateChangeSubscription;
+
+  AudioPlayer get player => widget.player;
+  String get _durationText => _duration?.toString().split('.').first ?? '00:00';
+  String get _positionText => _position?.toString().split('.').first ?? '00:00';
+
+  @override
+  void initState() {
+    super.initState();
+    _initStreams();
+  }
+
+  @override
+  void dispose() {
+    _durationSubscription?.cancel();
+    _positionSubscription?.cancel();
+    _playerCompleteSubscription?.cancel();
+    _playerStateChangeSubscription?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -33,9 +63,9 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('00:00', style: TextStyle(color: Colors.white, fontSize: 14),),
-              Text('01:00', style: TextStyle(color: Colors.white, fontSize: 14),),
+            children: [
+              Text(_positionText, style: const TextStyle(color: Colors.white, fontSize: 14),),
+              Text(_durationText, style: const TextStyle(color: Colors.white, fontSize: 14),),
             ],
           ),
           const Padding(padding: EdgeInsets.all(8)),
@@ -135,7 +165,32 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
     );
   }
 
-   Future<void> _seek(position) async {
+  Future<void> _seek(position) async {
     await widget.player.seek(position);
+  }
+
+  void _initStreams() {
+    _durationSubscription = player.onDurationChanged.listen((duration) {
+      print('_duration $duration');
+      setState(() => _duration = duration);
+    });
+
+    _positionSubscription = player.onPositionChanged.listen(
+      (p) => setState(() => _position = p),
+    );
+
+    _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
+      player.stop();
+      setState(() {
+        _playerState = PlayerState.stopped;
+        _position = _duration;
+      });
+    });
+
+    _playerStateChangeSubscription = player.onPlayerStateChanged.listen((state) {
+      setState(() {
+        _playerState = state;
+      });
+    });
   }
 }

@@ -24,11 +24,13 @@ class PlayerControlBoard extends StatefulWidget {
 
 class _PlayerControlBoardState extends State<PlayerControlBoard> {
   AudioPlayer get player => widget.player;
-  bool isPlaying = false;
   
-  PlayerState _playerState = PlayerState.stopped;
+  PlayerState _playerState = PlayerState.playing;
   StreamSubscription? _playerCompleteSubscription;
   StreamSubscription? _playerStateChangeSubscription;
+
+  bool get _isPlaying => _playerState == PlayerState.playing;
+  bool get _isPaused => _playerState == PlayerState.paused;
 
   @override
   void initState() {
@@ -60,14 +62,11 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
           ),
           GestureDetector(
             onTap: () {
-              if (!isPlaying) {
+              if (!_isPlaying) {
                 _resume();
               } else {
                 _pause();
               }
-              setState(() {
-                isPlaying = !isPlaying;
-              });
             },
             child: Container(
               width: 80,
@@ -85,7 +84,7 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
                   tileMode: TileMode.mirror,
                 ),
               ),
-              child: _playerState == PlayerState.playing 
+              child: _isPlaying 
                 ? const Icon(
                   Icons.pause,
                   color: Colors.white,

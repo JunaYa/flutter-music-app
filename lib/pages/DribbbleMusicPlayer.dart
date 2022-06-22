@@ -262,12 +262,10 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                   left: position,
                   child: GestureDetector(
                     onPanDown: (DragDownDetails e) {
-                      //打印手指按下的位置(屏幕)
-                      print("用户手指按下：${e.globalPosition}");
+                      print("onPanDown ${e}");
                     },
-                    //手指滑动时会触发此回调
                     onPanUpdate: (DragUpdateDetails e) {
-                      //用户手指滑动时，更新偏移，重新构建
+                      print("onPanUpdate ${e}");
                       setState(() {
                         double temp = position + e.delta.dx;
                         if (temp <= 0) {
@@ -280,8 +278,7 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                       });
                     },
                     onPanEnd: (DragEndDetails e) {
-                      //打印滑动结束时在x、y轴上的速度
-                      print(e.velocity);
+                      print("onPanEnd ${e}");
                     },
                     child: Container(
                       width: 28,
@@ -361,11 +358,11 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
                 ? const Icon(
                   Icons.pause,
                   color: Colors.white,
-                  size: 24.0)
+                  size: 32.0)
                 : const Icon(
                   Icons.play_arrow,
                   color: Colors.white,
-                  size: 24.0),
+                  size: 32.0),
             ).addNeumorphism(
               blurRadius: 10,
               borderRadius: 40,
@@ -408,7 +405,7 @@ class ButtonPlay extends StatelessWidget {
             _gredientColor1,
             _gredientColor2,
           ], // Gradient from https://learnui.design/tools/gradient-generator.html
-          tileMode: TileMode.mirror,
+          tileMode: TileMode.clamp,
         ),
       ),
       child: icon,

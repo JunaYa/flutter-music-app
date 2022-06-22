@@ -25,7 +25,6 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
   Duration? _duration;
   Duration? _position;
 
-  PlayerState _playerState = PlayerState.stopped;
   StreamSubscription? _durationSubscription;
   StreamSubscription? _positionSubscription;
   StreamSubscription? _playerCompleteSubscription;
@@ -38,6 +37,8 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
   int get d => _duration?.inMicroseconds ?? 0;
   double get rate => p / d;
   double position = 0;
+
+  bool isSeeking = false;
 
   @override
   void initState() {
@@ -96,7 +97,7 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                 Positioned(
                   top: 2,
                   left: 0,
-                  right: maxPosition - maxPosition * rate,
+                  right: maxPosition - (isSeeking ? position : maxPosition * rate),
                   child: Container(
                     width: double.infinity,
                     height: 4,
@@ -112,22 +113,19 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                         tileMode: TileMode.mirror,
                       ),
                     ),
-                    child: Container(
-                      width: 19,
-                      // color: const Color.fromARGB(255, 202, 84, 33),
-                    ),
                   ),
                 ),
                 Positioned(
                   top: -10,
-                  left: maxPosition * rate,
+                  left: isSeeking ? position : maxPosition * rate,
                   child: GestureDetector(
                     onPanDown: (DragDownDetails e) {
-                      print("onPanDown ${e}");
-                      _seek(position);
+                      setState(() {
+                        position = maxPosition * rate;
+                        isSeeking = true;
+                      });
                     },
                     onPanUpdate: (DragUpdateDetails e) {
-                      print("onPanUpdate ${e}");
                       setState(() {
                         double temp = position + e.delta.dx;
                         if (temp <= 0) {
@@ -140,7 +138,12 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                       });
                     },
                     onPanEnd: (DragEndDetails e) {
-                      print("onPanEnd ${e}");
+                      setState(() {
+                        isSeeking = false;
+                      });
+                      int sDuration = _duration?.inMicroseconds ?? 0;
+                      int s = ((position / maxPosition) * sDuration).toInt();
+                      _seek(Duration(microseconds: s));
                     },
                     child: Container(
                       width: 28,
@@ -180,18 +183,5 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
       (p) => setState(() => _position = p),
     );
 
-    _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
-      player.stop();
-      setState(() {
-        _playerState = PlayerState.stopped;
-        _position = _duration;
-      });
-    });
-
-    _playerStateChangeSubscription = player.onPlayerStateChanged.listen((state) {
-      setState(() {
-        _playerState = state;
-      });
-    });
   }
 }

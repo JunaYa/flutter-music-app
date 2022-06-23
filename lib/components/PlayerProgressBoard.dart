@@ -35,7 +35,7 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
   String get _positionText => _position?.toString().split('.').first ?? '00:00:00';
   int get p => _position?.inMicroseconds ?? 0;
   int get d => _duration?.inMicroseconds ?? 0;
-  double get rate => p / d;
+  double get rate => (p == 0 || d == 0) ? 0 : p / d;
   double position = 0;
 
   bool isSeeking = false;
@@ -96,7 +96,7 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                 Positioned(
                   top: 2,
                   left: 0,
-                  right: maxPosition - (isSeeking ? position : maxPosition * rate),
+                  right: maxPosition - position,
                   child: Container(
                     width: double.infinity,
                     height: 4,
@@ -116,7 +116,7 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                 ),
                 Positioned(
                   top: -10,
-                  left: isSeeking ? position : maxPosition * rate,
+                  left: isSeeking ? position : (maxPosition * rate),
                   child: GestureDetector(
                     onPanDown: (DragDownDetails e) {
                       setState(() {

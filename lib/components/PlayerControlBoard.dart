@@ -116,7 +116,6 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
 
   void _initStreams() {
     _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
-      print('state');
       player.stop();
       setState(() {
         _playerState = PlayerState.stopped;
@@ -124,7 +123,6 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
     });
 
     _playerStateChangeSubscription = player.onPlayerStateChanged.listen((state) {
-      print('state $state');
       setState(() {
         _playerState = state;
       });

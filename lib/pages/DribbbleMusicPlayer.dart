@@ -74,7 +74,7 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
               const Padding(padding: EdgeInsets.all(6)),
               const HeaderBoard(),
               const Padding(padding: EdgeInsets.all(10)),
-              AlbumBoard(isPlaying: _isPlaying),
+              AlbumBoard(player: player),
               const Padding(padding: EdgeInsets.all(36)),
               const Text('Low life',
                 style: TextStyle(

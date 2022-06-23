@@ -18,72 +18,57 @@ class HeaderBoard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-              color: Color.fromARGB(255, 44, 48, 53),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment(0.8, 1),
-                colors: <Color>[
-                  _gredientColor1,
-                  _gredientColor2,
-                ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                tileMode: TileMode.mirror,
-              ),
-            ),
-            child: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-              size: 24.0,
-              semanticLabel: 'Text to announce in accessibility modes',
-            ),
-          ).addNeumorphism(
-            blurRadius: 10,
-            borderRadius: 30,
-            offset: const Offset(5, 5),
-            topShadowColor: const Color.fromARGB(255, 60, 66, 73),
-            bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
-          ),
-          Text('play now'.toUpperCase(), style: const TextStyle(color: Colors.white),),
-          InkWell(
+          GestureDetector(
             onTap: () {
               Navigator.pop(context);
             },
-            child: Container(
-              width: 48,
-              height: 48,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                color: Color.fromARGB(255, 44, 48, 53),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment(0.8, 1),
-                  colors: <Color>[
-                    _gredientColor1,
-                    _gredientColor2,
-                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                  tileMode: TileMode.mirror,
-                ),
-              ),
-              child: const Icon(
-                Icons.list,
-                color: Colors.white,
-                size: 24.0,
-                semanticLabel: 'Text to announce in accessibility modes',
-              ),
-            ).addNeumorphism(
-              blurRadius: 10,
-              borderRadius: 30,
-              offset: const Offset(5, 5),
-              topShadowColor: const Color.fromARGB(255, 60, 66, 73),
-              bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
+            child: const ButtonIcon(child: Icon(
+              Icons.arrow_back, color: Colors.white, size: 24.0),
             ),
-          )
+          ),
+          Text('play now'.toUpperCase(), style: const TextStyle(color: Colors.white),),
+          const ButtonIcon(child: Icon(
+            Icons.list,
+            color: Colors.white,
+            size: 24.0,
+            semanticLabel: 'Text to announce in accessibility modes',
+          )),
         ],
       ),
     );
   }
+}
+
+class ButtonIcon extends StatelessWidget {
+  final Widget child;
+  const ButtonIcon({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 48,
+      height: 48,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(30.0)),
+        color: Color.fromARGB(255, 44, 48, 53),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment(0.8, 1),
+          colors: <Color>[
+            _gredientColor1,
+            _gredientColor2,
+          ], // Gradient from https://learnui.design/tools/gradient-generator.html
+          tileMode: TileMode.mirror,
+        ),
+      ),
+      child: child,
+    ).addNeumorphism(
+      blurRadius: 10,
+      borderRadius: 30,
+      offset: const Offset(5, 5),
+      topShadowColor: const Color.fromARGB(255, 60, 66, 73),
+      bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
+    );
+  }
+
 }

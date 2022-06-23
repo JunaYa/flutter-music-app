@@ -71,6 +71,7 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              const Padding(padding: EdgeInsets.all(8)),
               const HeaderBoard(),
               const Padding(padding: EdgeInsets.all(10)),
               AlbumBoard(player: player),
@@ -92,7 +93,8 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
               PlayerProgressBoard(player: player),
               SafeArea(
                 child: PlayerControlBoard(player: player, url: url),
-              )
+              ),
+              const Padding(padding: EdgeInsets.all(8)),
             ],
           ),
       ),

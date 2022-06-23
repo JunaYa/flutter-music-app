@@ -25,16 +25,14 @@ class PlayerControlBoard extends StatefulWidget {
 class _PlayerControlBoardState extends State<PlayerControlBoard> {
   AudioPlayer get player => widget.player;
   
-  PlayerState _playerState = PlayerState.playing;
+  PlayerState _playerState = PlayerState.stopped;
   StreamSubscription? _playerCompleteSubscription;
   StreamSubscription? _playerStateChangeSubscription;
 
   bool get _isPlaying => _playerState == PlayerState.playing;
-  bool get _isPaused => _playerState == PlayerState.paused;
 
   @override
   void initState() {
-    _init();
     super.initState();
     _initStreams();
   }
@@ -48,69 +46,71 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          const ButtonPlay(
-            icon: Icon(
-              Icons.skip_previous,
-              color: Colors.white,
-              size: 24.0,
-              semanticLabel: 'Text to announce in accessibility modes',
-            )
-          ),
-          GestureDetector(
-            onTap: () {
-              if (!_isPlaying) {
-                _resume();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        const ButtonPlay(
+          icon: Icon(
+            Icons.skip_previous,
+            color: Colors.white,
+            size: 24.0,
+            semanticLabel: 'Text to announce in accessibility modes',
+          )
+        ),
+        GestureDetector(
+          onTap: () {
+            if (!_isPlaying) {
+              if (_playerState == PlayerState.stopped) {
+                _init();
               } else {
-                _pause();
+                _resume();
               }
-            },
-            child: Container(
-              width: 80,
-              height: 80,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                color: Color.fromARGB(255, 44, 48, 53),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment(0.8, 1),
-                  colors: <Color>[
-                    _gredientColor1,
-                    _gredientColor2,
-                  ], // Gradient from https://learnui.design/tools/gradient-generator.html
-                  tileMode: TileMode.mirror,
-                ),
+            } else {
+              _pause();
+            }
+          },
+          child: Container(
+            width: 80,
+            height: 80,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(40.0)),
+              color: Color.fromARGB(255, 44, 48, 53),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment(0.8, 1),
+                colors: <Color>[
+                  _gredientColor1,
+                  _gredientColor2,
+                ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                tileMode: TileMode.mirror,
               ),
-              child: _isPlaying 
-                ? const Icon(
-                  Icons.pause,
-                  color: Colors.white,
-                  size: 32.0)
-                : const Icon(
-                  Icons.play_arrow,
-                  color: Colors.white,
-                  size: 32.0),
-            ).addNeumorphism(
-              blurRadius: 10,
-              borderRadius: 40,
-              offset: const Offset(5, 5),
-              topShadowColor: const Color.fromARGB(255, 60, 66, 73),
-              bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
             ),
+            child: _isPlaying 
+              ? const Icon(
+                Icons.pause,
+                color: Colors.white,
+                size: 32.0)
+              : const Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+                size: 32.0),
+          ).addNeumorphism(
+            blurRadius: 10,
+            borderRadius: 40,
+            offset: const Offset(5, 5),
+            topShadowColor: const Color.fromARGB(255, 60, 66, 73),
+            bottomShadowColor: const Color.fromARGB(255, 38, 43, 48),
           ),
-          const ButtonPlay(
-            icon: Icon(
-              Icons.skip_next,
-              color: Colors.white,
-              size: 24.0,
-              semanticLabel: 'Text to announce in accessibility modes',
-            )
-          ),
-        ],
-      )
+        ),
+        const ButtonPlay(
+          icon: Icon(
+            Icons.skip_next,
+            color: Colors.white,
+            size: 24.0,
+            semanticLabel: 'Text to announce in accessibility modes',
+          )
+        ),
+      ],
     );
   }
 

@@ -27,8 +27,6 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    _init(url);
-
     return Scaffold(
       body: Container(
           width: double.infinity,
@@ -75,9 +73,5 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
           ),
       ),
     );
-  }
-
-  Future<void> _init(url) async {
-    await player.setSource(UrlSource(url));
   }
 }

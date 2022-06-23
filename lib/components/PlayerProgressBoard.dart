@@ -73,7 +73,6 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
           ),
           const Padding(padding: EdgeInsets.all(8)),
           SizedBox(
-            width: double.infinity,
             height: 6,
             child: Stack(
               clipBehavior: Clip.none,

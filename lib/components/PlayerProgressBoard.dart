@@ -96,7 +96,7 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
                 Positioned(
                   top: 2,
                   left: 0,
-                  right: maxPosition - position,
+                  right: maxPosition - (isSeeking ? position : (maxPosition * rate)),
                   child: Container(
                     width: double.infinity,
                     height: 4,

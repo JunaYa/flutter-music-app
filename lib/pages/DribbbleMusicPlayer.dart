@@ -1,13 +1,10 @@
 
-import 'dart:async';
-
 import 'package:app/components/AlbumBoard.dart';
 import 'package:app/components/HeaderBoard.dart';
 import 'package:app/components/PlayerControlBoard.dart';
 import 'package:app/components/PlayerProgressBoard.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 const Color _gredientBgColor1 = Color.fromARGB(255, 24, 25, 28);
 const Color _gredientBgColor2 = Color.fromARGB(255, 56, 58, 64);
@@ -26,23 +23,13 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
   AudioPlayer player = AudioPlayer();
   String url  = 'https://r.hetao101.com/c/niq8uuoc2o.mp3';
 
-  PlayerState _playerState = PlayerState.stopped;
-  StreamSubscription? _playerCompleteSubscription;
-  StreamSubscription? _playerStateChangeSubscription;
-
-  bool get _isPlaying => _playerState == PlayerState.playing;
-
-
   @override
   void initState() {
     super.initState();
-    _initStreams();
   }
 
   @override
   void dispose() {
-    _playerCompleteSubscription?.cancel();
-    _playerStateChangeSubscription?.cancel();
     super.dispose();
   }
 
@@ -71,7 +58,7 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Padding(padding: EdgeInsets.all(8)),
+              // const Padding(padding: EdgeInsets.all(8)),
               const HeaderBoard(),
               const Padding(padding: EdgeInsets.all(10)),
               AlbumBoard(player: player),
@@ -94,25 +81,10 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
               SafeArea(
                 child: PlayerControlBoard(player: player, url: url),
               ),
-              const Padding(padding: EdgeInsets.all(8)),
+              // const Padding(padding: EdgeInsets.all(8)),
             ],
           ),
       ),
     );
-  }
-
-  void _initStreams() {
-    _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
-      player.stop();
-      setState(() {
-        _playerState = PlayerState.stopped;
-      });
-    });
-
-    _playerStateChangeSubscription = player.onPlayerStateChanged.listen((state) {
-      setState(() {
-        _playerState = state;
-      });
-    });
   }
 }

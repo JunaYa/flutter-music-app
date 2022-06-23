@@ -123,6 +123,7 @@ class _PlayerControlBoardState extends State<PlayerControlBoard> {
     });
 
     _playerStateChangeSubscription = player.onPlayerStateChanged.listen((state) {
+      print('state122 $state');
       setState(() {
         _playerState = state;
       });

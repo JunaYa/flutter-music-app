@@ -27,7 +27,6 @@ class AlbumBoardState extends State<AlbumBoard> with TickerProviderStateMixin {
   double turns = 0.0;
   PlayerState _playerState = PlayerState.stopped;
 
-  StreamSubscription? _positionSubscription;
   StreamSubscription? _playerCompleteSubscription;
   StreamSubscription? _playerStateChangeSubscription;
   AudioPlayer get player => widget.player;
@@ -50,7 +49,6 @@ class AlbumBoardState extends State<AlbumBoard> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _positionSubscription?.cancel();
     _playerCompleteSubscription?.cancel();
     _playerStateChangeSubscription?.cancel();
     _controller.dispose();
@@ -96,10 +94,6 @@ class AlbumBoardState extends State<AlbumBoard> with TickerProviderStateMixin {
   }
 
   void _initStreams() {
-    _positionSubscription = player.onPositionChanged.listen((p) {
-      // _controller.repeat();
-    });
-
     _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
       player.stop();
       setState(() {
@@ -109,6 +103,7 @@ class AlbumBoardState extends State<AlbumBoard> with TickerProviderStateMixin {
     });
 
     _playerStateChangeSubscription = player.onPlayerStateChanged.listen((state) {
+      print('state $state');
       setState(() {
         _playerState = state;
       });

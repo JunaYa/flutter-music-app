@@ -12,7 +12,9 @@ const Color _gredientColor2 = Color.fromRGBO(22, 17, 22, 1);
 
 
 class AlbumBoard extends StatelessWidget {
-  const AlbumBoard({Key? key}) : super(key: key);
+  final isPlaying;
+
+  const AlbumBoard({Key? key, required this.isPlaying}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {

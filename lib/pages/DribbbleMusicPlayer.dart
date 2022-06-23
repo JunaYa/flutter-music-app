@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:app/components/AlbumBoard.dart';
 import 'package:app/components/HeaderBoard.dart';
 import 'package:app/components/PlayerControlBoard.dart';
@@ -23,6 +25,27 @@ class DribbbleMusicPlayer extends StatefulWidget {
 class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
   AudioPlayer player = AudioPlayer();
   String url  = 'https://r.hetao101.com/c/niq8uuoc2o.mp3';
+
+  PlayerState _playerState = PlayerState.stopped;
+  StreamSubscription? _playerCompleteSubscription;
+  StreamSubscription? _playerStateChangeSubscription;
+
+  bool get _isPlaying => _playerState == PlayerState.playing;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _initStreams();
+  }
+
+  @override
+  void dispose() {
+    _playerCompleteSubscription?.cancel();
+    _playerStateChangeSubscription?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -51,7 +74,7 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
               const Padding(padding: EdgeInsets.all(6)),
               const HeaderBoard(),
               const Padding(padding: EdgeInsets.all(10)),
-              const AlbumBoard(),
+              AlbumBoard(isPlaying: _isPlaying),
               const Padding(padding: EdgeInsets.all(36)),
               const Text('Low life',
                 style: TextStyle(
@@ -73,5 +96,20 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
           ),
       ),
     );
+  }
+
+  void _initStreams() {
+    _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
+      player.stop();
+      setState(() {
+        _playerState = PlayerState.stopped;
+      });
+    });
+
+    _playerStateChangeSubscription = player.onPlayerStateChanged.listen((state) {
+      setState(() {
+        _playerState = state;
+      });
+    });
   }
 }

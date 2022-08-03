@@ -58,30 +58,34 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // const Padding(padding: EdgeInsets.all(8)),
+              const Padding(padding: EdgeInsets.all(8)),
               const HeaderBoard(),
-              const Padding(padding: EdgeInsets.all(10)),
               AlbumBoard(player: player),
-              const Padding(padding: EdgeInsets.all(36)),
-              const Text('Low life',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                )),
-              const Padding(padding: EdgeInsets.all(4)),
-              const Text('FM.Hometown 赶路人',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.white
+              const AspectRatio(aspectRatio: 20,
+                child: Text('Low life',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  )
+                )
+              ),
+              const AspectRatio(aspectRatio: 16,
+                child: Text('FM.Hometown 赶路人',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white
+                  )
                 )
               ),
               PlayerProgressBoard(player: player),
               SafeArea(
                 child: PlayerControlBoard(player: player, url: url),
               ),
-              // const Padding(padding: EdgeInsets.all(8)),
+              const Padding(padding: EdgeInsets.all(8)),
             ],
           ),
       ),

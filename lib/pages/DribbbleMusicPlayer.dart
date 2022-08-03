@@ -1,9 +1,12 @@
 
+import 'dart:io';
+
 import 'package:app/components/AlbumBoard.dart';
 import 'package:app/components/HeaderBoard.dart';
 import 'package:app/components/PlayerControlBoard.dart';
 import 'package:app/components/PlayerProgressBoard.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 const Color _gredientBgColor1 = Color.fromARGB(255, 24, 25, 28);
@@ -22,7 +25,7 @@ class DribbbleMusicPlayer extends StatefulWidget {
 class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
   AudioPlayer player = AudioPlayer();
   String url  = 'https://r.hetao101.com/c/niq8uuoc2o.mp3';
-
+  bool isDesktop = !kIsWeb && (Platform.isMacOS || Platform.isLinux || Platform.isWindows);
   @override
   void initState() {
     super.initState();
@@ -36,7 +39,6 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Center(
         child: Stack(
@@ -64,7 +66,7 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
                   verticalDirection: VerticalDirection.down,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    const Padding(padding: EdgeInsets.all(8)),
+                    isDesktop ? const SizedBox(height: 16) : const SizedBox(height: 0),
                     const HeaderBoard(),
                     AlbumBoard(player: player),
                     const AspectRatio(aspectRatio: 20,
@@ -91,7 +93,7 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
                     SafeArea(
                       child: PlayerControlBoard(player: player, url: url),
                     ),
-                    const Padding(padding: EdgeInsets.all(8)),
+                    isDesktop ? const SizedBox(height: 16) : const SizedBox(height: 0),
                   ],
                 ),
             ),

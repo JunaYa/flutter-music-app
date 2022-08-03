@@ -38,57 +38,66 @@ class _DribbbleMusicPlayer extends State<DribbbleMusicPlayer>{
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Container(
-          width: double.infinity,
-          height: size.height,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-            color: Color.fromARGB(255, 44, 48, 53),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: <Color>[
-                _gredientBgColor2,
-                _gredientBgColor1,
-              ], // Gradient from https://learnui.design/tools/gradient-generator.html
-              tileMode: TileMode.mirror,
+      body: Center(
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            Container(
+                width: double.infinity,
+                height: size.height,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  color: Color.fromARGB(255, 44, 48, 53),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      _gredientBgColor2,
+                      _gredientBgColor1,
+                    ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                    tileMode: TileMode.mirror,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  verticalDirection: VerticalDirection.down,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const Padding(padding: EdgeInsets.all(8)),
+                    const HeaderBoard(),
+                    AlbumBoard(player: player),
+                    const AspectRatio(aspectRatio: 20,
+                      child: Text('Low life',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white
+                        )
+                      )
+                    ),
+                    const AspectRatio(aspectRatio: 16,
+                      child: Text('FM.Hometown 赶路人',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white
+                        )
+                      )
+                    ),
+                    PlayerProgressBoard(player: player),
+                    SafeArea(
+                      child: PlayerControlBoard(player: player, url: url),
+                    ),
+                    const Padding(padding: EdgeInsets.all(8)),
+                  ],
+                ),
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Padding(padding: EdgeInsets.all(8)),
-              const HeaderBoard(),
-              AlbumBoard(player: player),
-              const AspectRatio(aspectRatio: 20,
-                child: Text('Low life',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
-                  )
-                )
-              ),
-              const AspectRatio(aspectRatio: 16,
-                child: Text('FM.Hometown 赶路人',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white
-                  )
-                )
-              ),
-              PlayerProgressBoard(player: player),
-              SafeArea(
-                child: PlayerControlBoard(player: player, url: url),
-              ),
-              const Padding(padding: EdgeInsets.all(8)),
-            ],
-          ),
-      ),
+          ],
+        ),
+      )
     );
   }
 }

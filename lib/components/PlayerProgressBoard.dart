@@ -60,6 +60,7 @@ class _PlayerProgressBoard extends State<PlayerProgressBoard> {
     Size size = MediaQuery.of(context).size;
     double maxPosition = size.width - 48 - 28;
     return Container(
+      margin: const EdgeInsets.only(top: 48, bottom: 68),
       padding: const EdgeInsets.only(left: 24, right: 24),
       child: Column(
         children: [

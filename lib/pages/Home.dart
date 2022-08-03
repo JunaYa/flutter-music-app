@@ -1,4 +1,3 @@
-import 'package:app/pages/ReportReading.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,7 +20,6 @@ class Home extends StatelessWidget {
         child: ElevatedButton(
           child: const Text('Open route'),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ReportReading()));
           },
         ),
       ),

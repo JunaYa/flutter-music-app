@@ -1,4 +1,4 @@
-import 'package:app/model/abstract_model.dart';
+import 'package:app/models/abstract_model.dart';
 import 'package:app/themes.dart';
 
 /// //////////////////////////////////////////////////////

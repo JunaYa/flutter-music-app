@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 
 abstract class AbstractModel extends ChangeNotifier {
@@ -7,6 +9,11 @@ abstract class AbstractModel extends ChangeNotifier {
   }
 
   void notify() => notifyListeners();
+
+  Future<void> load() async {
+    String string =  "{}";
+    copyFromJson(jsonDecode(string));
+  }
 
 
   Map<String, dynamic> toJson() {

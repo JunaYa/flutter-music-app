@@ -37,6 +37,10 @@ dependencies:
   flutter_neumorphic: ^3.0.3
   audioplayers: ^1.0.1
   provider: ^6.0.3
+  desktop_window: 
+    git:
+      url: https://github.com/mix1009/desktop_window
+      ref: c0800a77477141ce7d1ad3080db5909fcce0d520
 
 dev_dependencies:
   flutter_test:

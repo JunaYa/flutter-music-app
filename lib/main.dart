@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:app/_internal/no_glow_scroll_behavior.dart';
+import 'package:app/commands/bootstrap_command.dart';
 import 'package:app/globals.dart';
-import 'package:app/model/AppModel.dart';
+import 'package:app/models/AppModel.dart';
 import 'package:app/styles.dart';
 import 'package:app/themes.dart';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:app/pages/DribbbleMusicPlayer.dart';
@@ -33,6 +35,15 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  @override
+  void initState() {
+    context.read<AppModel>().load().then((value) async {
+      print('--------');
+      await BootstrapCommand(context).execute();
+    });
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     ThemeType themeType = context.select<AppModel, ThemeType>((value) => value.theme);
